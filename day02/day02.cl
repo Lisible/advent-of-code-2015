@@ -25,8 +25,10 @@
   (* (dimension-w dim) (dimension-l dim) (dimension-h dim)))
 
 (defun parse-dimension (line)
-  (let ((split-dimension-string (split-sequence:SPLIT-SEQUENCE #\x line)))
-    (make-dimension :l (parse-integer (elt split-dimension-string 0)) :w (parse-integer (elt split-dimension-string 1)) :h (parse-integer (elt split-dimension-string 2)))))
+  (make-dimension-from-list (map 'list 'parse-integer (split-sequence:SPLIT-SEQUENCE #\x line))))
+
+(defun make-dimension-from-list (list)
+  (make-dimension :l (pop list) :w (pop list) :h (pop list)))
 
 (defun wrapping-paper-surface (dim)
   (let ((w (dimension-w dim))

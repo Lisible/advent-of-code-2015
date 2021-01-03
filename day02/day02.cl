@@ -3,11 +3,11 @@
 (defstruct dimension l w h)
 
 (defun day02 ()
-  (let ((input (read-lines "input")))
-    (part1 input)))
+  (let ((dimensions (map 'list 'parse-dimension (read-lines "input"))))
+    (part1 dimensions)))
 
-(defun part1 (lines)
-  (print (reduce #'+ (map 'list (lambda (line) (wrapping-paper-surface (parse-dimension line))) lines))))
+(defun part1 (dimensions)
+  (print (reduce #'+ (map 'list 'wrapping-paper-surface dimensions))))
 
 (defun parse-dimension (line)
   (let ((split-dimension-string (split-sequence:SPLIT-SEQUENCE #\x line)))

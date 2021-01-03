@@ -4,10 +4,25 @@
 
 (defun day02 ()
   (let ((dimensions (map 'list 'parse-dimension (read-lines "input"))))
-    (part1 dimensions)))
+    (part1 dimensions)
+    (part2 dimensions)))
 
 (defun part1 (dimensions)
   (print (reduce #'+ (map 'list 'wrapping-paper-surface dimensions))))
+
+(defun part2 (dimensions)
+  (print (reduce (lambda (acc dim) (+ acc (ribbon-wrapping-length dim) (ribbon-bow-length dim))) dimensions :initial-value 0)))
+
+(defun ribbon-wrapping-length (dim)
+  (min (perimeter (dimension-w dim) (dimension-l dim))
+       (perimeter (dimension-h dim) (dimension-l dim))
+       (perimeter (dimension-w dim) (dimension-h dim))))
+
+(defun perimeter (a b)
+  (+ (* 2 a) (* 2 b)))
+
+(defun ribbon-bow-length (dim)
+  (* (dimension-w dim) (dimension-l dim) (dimension-h dim)))
 
 (defun parse-dimension (line)
   (let ((split-dimension-string (split-sequence:SPLIT-SEQUENCE #\x line)))

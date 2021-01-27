@@ -35,7 +35,11 @@
 
 (defun part2 (input-file-name)
   (let ((input (read-to-string input-file-name)))
-    (print (count-visited-positions (concatenate 'list (compute-position-list (index-filter input 'oddp)) (compute-position-list (index-filter input 'evenp)))))))
+    (print
+     (count-visited-positions
+      (concatenate 'list
+		   (compute-position-list (index-filter input 'oddp))
+		   (compute-position-list (index-filter input 'evenp)))))))
 
 (part1 "input")
 (part2 "input")

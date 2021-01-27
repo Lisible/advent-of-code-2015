@@ -11,12 +11,31 @@
     ((eql character #\^) (list (car last-position) (1+ (car (last last-position)))))
     ((eql character #\v) (list (car last-position) (1- (car (last last-position)))))))
 
+(defun index-filter (l f)
+  (loop for a across l
+	for i upfrom 1
+	if (funcall f i) collect a))
+
 (defun part1 (input-file-name)
-   (print (length (remove-duplicates (reduce
-    (lambda (acc val)
-      (cons
-       (compute-next-position (car acc) val) acc))
-    (read-to-string input-file-name)
-    :initial-value (list (list 0 0))) :test #'equal))))
+  (print
+   (count-visited-positions (compute-position-list (read-to-string input-file-name)))))
+
+(defun count-visited-positions (l)
+  (length
+   (remove-duplicates
+    l
+    :test #'equal)))
+
+(defun compute-position-list (str)
+  (reduce
+     (lambda (acc val)
+       (cons (compute-next-position (car acc) val) acc))
+     str
+     :initial-value (list (list 0 0))))
+
+(defun part2 (input-file-name)
+  (let ((input (read-to-string input-file-name)))
+    (print (count-visited-positions (concatenate 'list (compute-position-list (index-filter input 'oddp)) (compute-position-list (index-filter input 'evenp)))))))
 
 (part1 "input")
+(part2 "input")

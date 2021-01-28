@@ -17,8 +17,7 @@
 	if (funcall f i) collect a))
 
 (defun part1 (input-file-name)
-  (print
-   (count-visited-positions (compute-position-list (read-to-string input-file-name)))))
+  (count-visited-positions (compute-position-list (read-to-string input-file-name))))
 
 (defun count-visited-positions (l)
   (length
@@ -35,11 +34,10 @@
 
 (defun part2 (input-file-name)
   (let ((input (read-to-string input-file-name)))
-    (print
-     (count-visited-positions
+    (count-visited-positions
       (concatenate 'list
 		   (compute-position-list (index-filter input 'oddp))
-		   (compute-position-list (index-filter input 'evenp)))))))
+		   (compute-position-list (index-filter input 'evenp))))))
 
-(part1 "input")
-(part2 "input")
+(print (part1 "input"))
+(print (part2 "input"))
